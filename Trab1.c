@@ -117,7 +117,8 @@ int main(){
         indexCadeias++;
     }
     
-    printf("varQ: %d  quantSimbolos: %d\n" , varQ, quantSimbolos);
+/* //prints para testar se entradas funcionaram
+   printf("varQ: %d  quantSimbolos: %d\n" , varQ, quantSimbolos);
     for(int i=0; i<quantSimbolos; i++){
         printf("Sigma[%d]: %c\n" , i, sigma[i]);
     }
@@ -132,7 +133,7 @@ int main(){
     printf("numCadeias: %d\n", numCadeias);
     for(int i=0; i<indexCadeias; i++){
         printf("Cadeia[%d]: %s\n" , i, cadeias[i].cadeia);
-    }
+    }*/
     
     free(cadeias);
     free(estAceit);
