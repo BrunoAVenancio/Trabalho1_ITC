@@ -10,7 +10,6 @@ int isStringAcceptable(node **stateList,int currentState ,inputString *string)
 
     while(aux != NULL && isPossible == 0 && string->currentIndex < strlen(string->value))
     {
-        //abb
         if(aux->transitionValue == string->value[string->currentIndex])
         {
             if(strlen(string->value) == string->currentIndex + 1 && stateList[aux->nextStateName]->isEndState == 1)
@@ -22,8 +21,6 @@ int isStringAcceptable(node **stateList,int currentState ,inputString *string)
         }
         aux = aux->next;
     }
-    //
-
     return isPossible;
 }
 
@@ -51,5 +48,5 @@ void readAndVerifyAllStrings(node **stateList, int totalStrings)
             printf("rejeita\n");
         }
     }
-
+    free(string);
 }

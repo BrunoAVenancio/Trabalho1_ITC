@@ -7,18 +7,18 @@ int readStatesQuantity()
     while(1)
     {
         scanf("%d", &quantity);
-        if(quantity > 0 && quantity < 11)
+        if (quantity > 0 && quantity < 11)
             break;
         else
             printf("Valor fora do intervalo 1<=n<=10. Informe outro valor.\n");
     }
-    fflush(stdin);
+    setbuf(stdin, NULL);
     return quantity;
 }
 
 //Linha 2
 void readSymbols(char *sigma)
-{   
+{
     char trash;
     int symbolQuantity;
     scanf("%d", &symbolQuantity);
@@ -27,6 +27,7 @@ void readSymbols(char *sigma)
         scanf("%c", &trash);
         scanf("%c", &sigma[i]);
     }
+    getchar();
 }
 
 // Linha 3
@@ -48,7 +49,7 @@ void readInitialStates(node **stateList)
         else
             printf("Quantidade de estados iniciais fora do intervalo 1<=n<=10. Informe outro valor.\n");
     }
-    fflush(stdin);
+    getchar();
 }
 
 // Linha 4
@@ -64,6 +65,7 @@ void readEndStates(node **stateList)
         int index  = endState - '0';
         stateList[index]->isEndState = 1;
     }
+    getchar();
 }
 //linha 5
 int readTransition()
@@ -79,6 +81,7 @@ int readTransition()
             printf("Numero de transicoes fora do intervalo 1<=n<=50. Informe outro valor.\n");
 
     }
+    getchar();
     return totalTransitions;
 }
 
@@ -99,10 +102,11 @@ void readTransitions(node **stateList)
 {
     char trash;
     int totalTransitions = readTransition();
+
     transition_t *transition = (transition_t*)malloc(totalTransitions * (sizeof(transition_t)));
     //linha 6
     //CRIAR UMA CONDICAO DE NAO PERMITIR INSERIR UM TERMINAL QUE NAO PERTENCA AO SIGMA
-    for(int i = 0; i < totalTransitions; i++)
+    for (int i = 0; i < totalTransitions; i++)
     {
         fflush(stdin);
         scanf("%c", &transition[i].currentState);
@@ -110,8 +114,10 @@ void readTransitions(node **stateList)
         scanf("%c", &transition[i].transitionValue);
         scanf("%c", &trash);
         scanf("%c", &transition[i].nextState);
+        getchar();
         int currentState= transition[i].currentState - '0';
         int nextState = transition[i].nextState - '0';
+
         pushNode(stateList[currentState],nextState,transition[i].transitionValue);
     }
     free(transition);
@@ -135,15 +141,3 @@ int readStringQuantity()
 
     return totalStrings;
 }
-
-// // //linha 8
-// int readAllInputString(inputString **strings, int totalStrings)
-// {    
-//     //linha 8
-//     for(int i = 0; i < totalStrings; i++)
-//     {
-//         fflush(stdin);
-//         scanf("%s",strings[i]->value);
-//     }
-// }
-

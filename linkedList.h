@@ -18,7 +18,6 @@ struct node
 node *createLinkedList();
 int pushNode(node *, int, char);
 void freeLinkedList(node *);
-void printNode(node **);
 
 
 #endif

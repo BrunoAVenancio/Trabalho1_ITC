@@ -2,10 +2,6 @@
 #define OPERATION_H
 #include "linkedList.h"
 
-typedef struct cadeias{
-    char cadeia[21];
-}cadeias_t;
-
 typedef struct transition{
     char currentState;
     char transitionValue;

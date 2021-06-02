@@ -39,18 +39,3 @@ int pushNode(node *header, int state, char value)
 
     return 1;
 }
-
-
-void printNode(node **linkedList)
-{
-    for(int i = 0; i < 3; i++)
-    {
-        node *aux = linkedList[i]->next;
-        while(aux != NULL)
-        {
-            printf("state:%d -> state: %d value: %c\n",i,aux->nextStateName,aux->transitionValue);
-            aux = aux->next;
-        }
-        printf("-----------------\n");
-    }
-}
