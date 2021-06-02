@@ -1,9 +1,17 @@
 #ifndef ACCEPT_STATE_HANDLER
 #define ACCEPT_STATE_HANDLER
 
-#include "linkedList.h"
+#include "operation.h"
 
-int hasPath(node **,int  ,char *, int , int , int );
+
+typedef struct inputString  
+{
+    char value[21];
+    int currentIndex;
+} inputString;
+
+int isStringAcceptable(node **, int  ,inputString *);
+void readAndVerifyAllStrings(node **, int);
 
 
 #endif

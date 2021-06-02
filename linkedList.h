@@ -8,14 +8,16 @@
 typedef struct node node;
 struct node
 {
+    int isEndState;
+    int isInitialState;
     node *next; //proximos estado
-    int state; //nome
-    char value; //valor
+    int nextStateName; //nome do proximo estado, se for q2 = 2
+    char transitionValue; //valor da transicao
 };
 
 node *createLinkedList();
 int pushNode(node *, int, char);
-void free_linkedList(node *);
+void freeLinkedList(node *);
 void printNode(node **);
 
 

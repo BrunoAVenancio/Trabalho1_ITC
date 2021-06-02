@@ -1,38 +1,47 @@
 #include "acceptStateHandler.h"
 
-void funcaoRecursiva(node **linkedList, char *input_string)
-{
-    //Passo o array de estados com os paths de cada um deles
-    //Depois comeco com o estado inicial
-    //Ai entro em uma funcao recursiva, que retorna false ou true para indicar se existe ou nao
-    //Nessa funcao recursica devo verificar todos os paths possivel de cada estado, logo, preciso verificar na toda lista de
-    //cada estado, para ver se existe o terminal que desejo e, com isso, se tiver ele entra em uma funcao com esse node, ai a lista
-    // vai ate quando chegar no NULL
-    
-}
-
 //ta tudo desorganizado , me desculpe
 //por enquanto so um estado final, depois implemento o codigo com mais de um estado final
-int hasPath(node **linkedList,int current_state ,char *input_string, int string_index, int end_state, int isPossible)
+int isStringAcceptable(node **stateList,int currentState ,inputString *string)
 {
+    int isPossible = 0;
     //ver os caminhos
-    node *aux = linkedList[current_state]->next;
-    while(aux != NULL && isPossible == 0 && string_index < strlen(input_string))
+    node *aux = stateList[currentState]->next;
+    while(aux != NULL && isPossible == 0 && string->currentIndex < strlen(string->value))
     {
-        printf("{%d,%d}%c\n",current_state,aux->state,aux->value);
-        if(aux->value == input_string[string_index])
+        if(aux->transitionValue == string->value[string->currentIndex])
         {
-            printf("%lu e %d\n",strlen(input_string),string_index);
-            if(strlen(input_string) == string_index + 1 && end_state == aux->state)
+            if(strlen(string->value) == string->currentIndex + 1 && stateList[aux->nextStateName]->isEndState == 1)
             {
-                            printf("%lu\n",strlen(input_string));
                 return 1; // Eh possivel a entrada
             }
-            isPossible = hasPath(linkedList, aux->state, input_string, string_index+1, end_state, isPossible);
+            string->currentIndex++;
+            isPossible = isStringAcceptable(stateList, aux->nextStateName, string);
         }
         aux = aux->next;
     }
     //
 
     return isPossible;
+}
+
+void readAndVerifyAllStrings(node **stateList, int totalStrings)
+{
+    inputString *string = (inputString*)malloc(sizeof(inputString));
+    for(int i = 0; i < totalStrings; i++)
+    {
+        fflush(stdin);
+        scanf("%s",string->value);
+        string->currentIndex = 0;
+        //Posso alterar o valor fixo do 0 para outro estado inical, caso for AFN
+        int isPossible = isStringAcceptable(stateList,0,string);
+        if(isPossible == 1)
+        {
+            printf("aceita\n");
+        } else
+        {
+            printf("rejeita\n");
+        }
+    }
+
 }

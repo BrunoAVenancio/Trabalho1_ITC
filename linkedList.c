@@ -1,7 +1,29 @@
 #include "linkedList.h"
 
 
-//void create_node()
+//cria os nodes para a linked List
+node *createLinkedList()
+{
+    node *header = (node*)malloc(sizeof(node));
+    header->next = NULL;
+    header->nextStateName = -1;
+    header->transitionValue = '-';
+    header->isEndState = 0;
+    header->isInitialState = 0;
+    
+    return header;
+}
+
+//Liberar todos os Nodes da lista
+void freeLinkedList(node *header){
+    node *auxNode;
+    while(header != NULL){
+        auxNode = header;
+        header = header->next;
+        free(auxNode);
+    }
+}
+
 int pushNode(node *header, int state, char value)
 {
     node *aux = header;
@@ -9,34 +31,15 @@ int pushNode(node *header, int state, char value)
     {
         aux = aux->next;
     }
-    node *new_node = (node*)malloc(sizeof(node));
-    new_node->state = state;
-    new_node->value = value;
-    new_node->next = NULL;
-    aux->next = new_node;
+    node *newNode = (node*)malloc(sizeof(node));
+    newNode->nextStateName = state;
+    newNode->transitionValue = value;
+    newNode->next = NULL;
+    aux->next = newNode;
 
     return 1;
 }
 
-//Liberar todos os Nodes da lista
-void free_linkedList(node *header){
-    node *aux_node;
-    while(header != NULL){
-        aux_node = header;
-        header = header->next;
-        free(aux_node);
-    }
-}
-
-node *createLinkedList()
-{
-    node *header = (node*)malloc(sizeof(node));
-    header->next = NULL;
-    header->state = -1;
-    header->value = '-';
-    
-    return header;
-}
 
 void printNode(node **linkedList)
 {
@@ -45,7 +48,7 @@ void printNode(node **linkedList)
         node *aux = linkedList[i]->next;
         while(aux != NULL)
         {
-            printf("state:%d -> state: %d value: %c\n",i,aux->state,aux->value);
+            printf("state:%d -> state: %d value: %c\n",i,aux->nextStateName,aux->transitionValue);
             aux = aux->next;
         }
         printf("-----------------\n");
