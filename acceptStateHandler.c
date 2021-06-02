@@ -7,8 +7,10 @@ int isStringAcceptable(node **stateList,int currentState ,inputString *string)
     int isPossible = 0;
     //ver os caminhos
     node *aux = stateList[currentState]->next;
+
     while(aux != NULL && isPossible == 0 && string->currentIndex < strlen(string->value))
     {
+        //abb
         if(aux->transitionValue == string->value[string->currentIndex])
         {
             if(strlen(string->value) == string->currentIndex + 1 && stateList[aux->nextStateName]->isEndState == 1)
@@ -26,15 +28,21 @@ int isStringAcceptable(node **stateList,int currentState ,inputString *string)
 }
 
 void readAndVerifyAllStrings(node **stateList, int totalStrings)
-{
+{   
     inputString *string = (inputString*)malloc(sizeof(inputString));
     for(int i = 0; i < totalStrings; i++)
     {
+        int isPossible = 0;
+        int currentInitialState = 0;
         fflush(stdin);
         scanf("%s",string->value);
         string->currentIndex = 0;
         //Posso alterar o valor fixo do 0 para outro estado inical, caso for AFN
-        int isPossible = isStringAcceptable(stateList,0,string);
+        while(isPossible == 0 && stateList[currentInitialState]->isInitialState == 1)
+        {
+            isPossible = isStringAcceptable(stateList,currentInitialState,string);
+            currentInitialState++;
+        }
         if(isPossible == 1)
         {
             printf("aceita\n");

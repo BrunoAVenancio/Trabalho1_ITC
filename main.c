@@ -2,37 +2,30 @@
 
 int main()
 {
-    // linha1
+    //Linha 1 - Numero de estados
     int totalStates = readStatesQuantity();
     node *stateList[totalStates];
     for(int i = 0; i < totalStates; i++)
     {
         stateList[i] = createLinkedList();
     }
-  
-    //linha2
+    //Linha 2 - Os simbolos do conjunto sigma
     char *sigma = (char*)calloc(10,sizeof(char));
     readSymbols(sigma);
-  
-    //linha 3
+    //Linha 3 - Os estados iniciais
     readInitialStates(stateList);
-
-    //linha 4
+    //Linha 4 - Os estados de aceitacao
     readEndStates(stateList);
-    
-    //linha 5 e 6
+    //Linha 5 e 6 - O numero de transicoes e as transicoes entre os estados
     readTransitions(stateList);
-    
-    
-    //Linha 7 e 8
+    //Linha 7 e 8 - Le as cadeias de entrada, e verifica se a linguagem é reconhecida pelo automato ou nao
     int totalStringsToRead = readStringQuantity();
-
-    //Operacao para descobrir se pertence ou nao à linguagem pelo automato
     readAndVerifyAllStrings(stateList,totalStringsToRead);
     
-    //Liberar
+    //Libera a lista e o conjunto sigma
     for(int i = 0; i < totalStates; i++)
     {
         freeLinkedList(stateList[i]);
     }
+    free(sigma);
 }
