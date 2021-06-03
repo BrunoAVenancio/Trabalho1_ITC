@@ -1,7 +1,7 @@
 all: compile
 
 compile:
-	@gcc *.c -o main.run -Wall
+	@gcc *.c -o main.exe -Wall
 	
 run:
-	@./main.run
+	@./main.exe
