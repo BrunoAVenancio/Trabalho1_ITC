@@ -3,15 +3,13 @@
 
 #include "operation.h"
 
-
-typedef struct inputString  
+typedef struct inputString
 {
     char value[21];
     int currentIndex;
-} inputString;
+}   inputString;
 
 int isStringAcceptable(node **, int  ,inputString *);
 void readAndVerifyAllStrings(node **, int);
-
 
 #endif

@@ -19,5 +19,4 @@ node *createLinkedList();
 int pushNode(node *, int, char);
 void freeLinkedList(node *);
 
-
 #endif

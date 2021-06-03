@@ -22,7 +22,9 @@ void readSymbols(char *sigma)
     char trash;
     int symbolQuantity;
     scanf("%d", &symbolQuantity);
-    for(int i = 0; i < symbolQuantity; i++)
+
+	int i = 0;
+	for (i = 0; i < symbolQuantity; i++)
     {
         scanf("%c", &trash);
         scanf("%c", &sigma[i]);
@@ -40,7 +42,8 @@ void readInitialStates(node **stateList)
         scanf("%d", &totalInitialStates);
         if(totalInitialStates > 0 && totalInitialStates < 11)
         {
-            for(int i = 0; i < totalInitialStates; i++)
+        	int i = 0;
+            for (i = 0; i < totalInitialStates; i++)
             {
                 stateList[i]->isInitialState = 1;
             }
@@ -58,7 +61,10 @@ void readEndStates(node **stateList)
     int totalEndStates = 0;
     char trash, endState;
     scanf("%d", &totalEndStates);
-    for(int i = 0; i < totalEndStates; i++){
+
+	int i = 0;
+	for (i = 0; i < totalEndStates; i++)
+	{
         scanf("%c", &trash);
         scanf("%c", &endState);
         //Convertendo o char para int
@@ -87,9 +93,10 @@ int readTransition()
 
 int isValueASymbol(char *value, char *sigma)
 {
-    for(int i = 0; i < 10; i++)
+	int i = 0;
+    for (i = 0; i < 10; i++)
     {
-        if(sigma[i] == value[0])
+        if (sigma[i] == value[0])
         {
             return 1;
         }
@@ -98,30 +105,44 @@ int isValueASymbol(char *value, char *sigma)
 }
 
 // Linha 5 e 6
-void readTransitions(node **stateList)
+void readTransitions(node **stateList, char *sigma)
 {
     char trash;
     int totalTransitions = readTransition();
 
     transition_t *transition = (transition_t*)malloc(totalTransitions * (sizeof(transition_t)));
+
     //linha 6
     //CRIAR UMA CONDICAO DE NAO PERMITIR INSERIR UM TERMINAL QUE NAO PERTENCA AO SIGMA
-    for (int i = 0; i < totalTransitions; i++)
+    int i = 0;
+	for (i = 0; i < totalTransitions; i++)
     {
-        fflush(stdin);
-        scanf("%c", &transition[i].currentState);
-        scanf("%c", &trash);
-        scanf("%c", &transition[i].transitionValue);
-        scanf("%c", &trash);
-        scanf("%c", &transition[i].nextState);
-        getchar();
-        int currentState= transition[i].currentState - '0';
-        int nextState = transition[i].nextState - '0';
+        int controller = 0;
+        while (controller == 0)
+        {
+            fflush(stdin);
+            scanf("%c", &transition[i].currentState);
+            scanf("%c", &trash);
+            scanf("%c", &transition[i].transitionValue);
+            scanf("%c", &trash);
+            scanf("%c", &transition[i].nextState);
+            getchar();
+            if (!isValueASymbol(&transition[i].transitionValue, sigma))
+            {
+                printf("Valor de transicao invalido (nao pertencente a sigma). Tente novamente.\n");
+                controller = 0;
+            }
+            else
+            {
+                controller = 1;
+                int currentState= transition[i].currentState - '0';
+                int nextState = transition[i].nextState - '0';
 
-        pushNode(stateList[currentState],nextState,transition[i].transitionValue);
+                pushNode(stateList[currentState],nextState,transition[i].transitionValue);
+            }
+        }
     }
     free(transition);
-
 }
 
 //linha 7
@@ -129,8 +150,10 @@ int readStringQuantity()
 {
     char trash;
     int totalStrings;
-    while(1){
-        fflush(stdin);
+
+    while (1)
+    {
+        setbuf(stdin, NULL);
         scanf("%d", &totalStrings);
         scanf("%c", &trash);
         if(totalStrings > 0 && totalStrings < 11)
