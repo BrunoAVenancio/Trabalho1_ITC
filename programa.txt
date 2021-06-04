@@ -93,11 +93,20 @@ void readSymbols(char *sigma)
     int symbolQuantity;
     scanf("%d", &symbolQuantity);
 
-	int i = 0;
-	for (i = 0; i < symbolQuantity; i++)
+    int i = 0;
+    for (i = 0; i < symbolQuantity && i < 10; i++)
     {
         scanf("%c", &trash);
         scanf("%c", &sigma[i]);
+    }
+    if(symbolQuantity > 10)
+    {
+        for(int j=10; j < symbolQuantity; j++)
+        {
+            scanf("%c", &trash);
+            scanf("%c", &trash);
+        }
+       // printf("Entradas além de 10 nao foram salvas!\n");
     }
     getchar();
 }
@@ -130,14 +139,22 @@ void readEndStates(node **stateList)
     char trash, endState;
     scanf("%d", &totalEndStates);
 
-	int i = 0;
-	for (i = 0; i < totalEndStates; i++)
-	{
+    int i = 0;
+    for (i = 0; i < totalEndStates && i < 10; i++)
+    {
         scanf("%c", &trash);
         scanf("%c", &endState);
         //Convertendo o char para int
         int index  = endState - '0';
         stateList[index]->isEndState = 1;
+    }
+    if(totalEndStates > 10)
+    {
+        for(int j = 10; j < totalEndStates; j++)
+        {
+            scanf("%c", &trash);
+            scanf("%c", &trash);
+        }
     }
     getchar();
 }
@@ -228,9 +245,7 @@ int readStringQuantity()
 
     return totalStrings;
 }
-/***** Fim das Funcoes de leitura de entrada *****/
 
-/***** Inicio das Funcoes de verificacao da cadeia *****/
 int isStringAcceptable(node **stateList,int currentState ,inputString *string)
 {
     int isPossible = 0;
@@ -333,7 +348,7 @@ int main()
 	//setbuf(stdin, NULL);
 	// getch();
 
-    system("pause");
+   // system("pause");
     
     return 0;
 }
