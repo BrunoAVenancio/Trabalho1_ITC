@@ -1,0 +1,339 @@
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+typedef struct transition
+{
+    char currentState;
+    char transitionValue;
+    char nextState;
+}   transition_t;
+
+typedef struct inputString
+{
+    char value[21];
+    int currentIndex;
+}   inputString;
+
+typedef struct node node;
+struct node
+{
+    int isEndState;
+    int isInitialState;
+    node *next; //proximos estado
+    int nextStateName; //nome do proximo estado, se for q2 = 2
+    char transitionValue; //valor da transicao
+};
+
+//cria os nodes para a linked List
+node *createLinkedList()
+{
+    node *header = (node*)malloc(sizeof(node));
+
+    header->next = NULL;
+    header->nextStateName = -1;
+    header->transitionValue = '-';
+    header->isEndState = 0;
+    header->isInitialState = 0;
+
+    return header;
+}
+
+//Liberar todos os Nodes da lista
+void freeLinkedList(node *header)
+{
+    node *auxNode;
+    while (header != NULL)
+    {
+        auxNode = header;
+        header = header->next;
+        free(auxNode);
+    }
+}
+
+int pushNode(node *header, int state, char value)
+{
+    node *aux = header;
+    while (aux->next != NULL)
+    {
+        aux = aux->next;
+    }
+
+    node *newNode = (node*) malloc(sizeof(node));
+    newNode->nextStateName = state;
+    newNode->transitionValue = value;
+    newNode->next = NULL;
+    aux->next = newNode;
+
+    return 1;
+}
+
+// linha1
+int readStatesQuantity()
+{
+    int quantity;
+    while(1)
+    {
+        scanf("%d", &quantity);
+        if (quantity > 0 && quantity < 11)
+            break;
+        else
+            printf("Valor fora do intervalo 1<=n<=10. Informe outro valor.\n");
+    }
+    setbuf(stdin, NULL);
+    return quantity;
+}
+
+//Linha 2
+void readSymbols(char *sigma)
+{
+    char trash;
+    int symbolQuantity;
+    scanf("%d", &symbolQuantity);
+
+	int i = 0;
+	for (i = 0; i < symbolQuantity; i++)
+    {
+        scanf("%c", &trash);
+        scanf("%c", &sigma[i]);
+    }
+    getchar();
+}
+
+// Linha 3
+void readInitialStates(node **stateList)
+{
+    int totalInitialStates = 0;
+    while(1)
+    {
+        fflush(stdin);
+        scanf("%d", &totalInitialStates);
+        if(totalInitialStates > 0 && totalInitialStates < 11)
+        {
+        	int i = 0;
+            for (i = 0; i < totalInitialStates; i++)
+            {
+                stateList[i]->isInitialState = 1;
+            }
+            break;
+        }
+        else
+            printf("Quantidade de estados iniciais fora do intervalo 1<=n<=10. Informe outro valor.\n");
+    }
+    getchar();
+}
+
+// Linha 4
+void readEndStates(node **stateList)
+{
+    int totalEndStates = 0;
+    char trash, endState;
+    scanf("%d", &totalEndStates);
+
+	int i = 0;
+	for (i = 0; i < totalEndStates; i++)
+	{
+        scanf("%c", &trash);
+        scanf("%c", &endState);
+        //Convertendo o char para int
+        int index  = endState - '0';
+        stateList[index]->isEndState = 1;
+    }
+    getchar();
+}
+
+//linha 5
+int readTransition()
+{
+    int totalTransitions = 0;
+    while(1)
+    {
+        fflush(stdin);
+        scanf("%d", &totalTransitions);
+        if(totalTransitions > 0 && totalTransitions < 51)
+            break;
+        else
+            printf("Numero de transicoes fora do intervalo 1<=n<=50. Informe outro valor.\n");
+
+    }
+    getchar();
+    return totalTransitions;
+}
+
+int isValueASymbol(char *value, char *sigma)
+{
+	int i = 0;
+    for (i = 0; i < 10; i++)
+    {
+        if (sigma[i] == value[0])
+        {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+// Linha 5 e 6
+void readTransitions(node **stateList, char *sigma)
+{
+    char trash;
+    int totalTransitions = readTransition();
+
+    transition_t *transition = (transition_t*)malloc(totalTransitions * (sizeof(transition_t)));
+
+    //linha 6
+    //CRIAR UMA CONDICAO DE NAO PERMITIR INSERIR UM TERMINAL QUE NAO PERTENCA AO SIGMA
+    int i = 0;
+	for (i = 0; i < totalTransitions; i++)
+    {
+        int controller = 0;
+        while (controller == 0)
+        {
+            fflush(stdin);
+            scanf("%c", &transition[i].currentState);
+            scanf("%c", &trash);
+            scanf("%c", &transition[i].transitionValue);
+            scanf("%c", &trash);
+            scanf("%c", &transition[i].nextState);
+            getchar();
+            if (!isValueASymbol(&transition[i].transitionValue, sigma))
+            {
+                printf("Valor de transicao invalido (nao pertencente a sigma). Tente novamente.\n");
+                controller = 0;
+            }
+            else
+            {
+                controller = 1;
+                int currentState= transition[i].currentState - '0';
+                int nextState = transition[i].nextState - '0';
+
+                pushNode(stateList[currentState],nextState,transition[i].transitionValue);
+            }
+        }
+    }
+    free(transition);
+}
+
+//linha 7
+int readStringQuantity()
+{
+    char trash;
+    int totalStrings;
+
+    while (1)
+    {
+        setbuf(stdin, NULL);
+        scanf("%d", &totalStrings);
+        scanf("%c", &trash);
+        if(totalStrings > 0 && totalStrings < 11)
+            break;
+        else
+            printf("Numero de cadeias fora do intervalo 1<=n<=10. Informe outro numero.\n");
+    }
+
+    return totalStrings;
+}
+
+int isStringAcceptable(node **stateList,int currentState ,inputString *string)
+{
+    int isPossible = 0;
+    node *aux = stateList[currentState]->next;
+
+    while (aux != NULL && isPossible == 0 && string->currentIndex < strlen(string->value))
+    {
+
+        if (aux->transitionValue == string->value[string->currentIndex])
+        {
+            if (strlen(string->value) == string->currentIndex + 1 && stateList[aux->nextStateName]->isEndState == 1)
+            {
+                return 1;
+            }
+            string->currentIndex++;
+            isPossible = isStringAcceptable(stateList, aux->nextStateName, string);
+
+            if (isPossible == 0)
+            {
+                string->currentIndex--;
+            }
+        }
+        aux = aux->next;
+    }
+
+    return isPossible;
+}
+
+void readAndVerifyAllStrings(node **stateList, int totalStrings)
+{
+    inputString *string = (inputString*) malloc(sizeof(inputString));
+
+	int i = 0;
+    for (i = 0; i < totalStrings; i++)
+    {
+        int isPossible = 0;
+        int currentInitialState = 0;
+        setbuf(stdin, NULL);
+
+        scanf("%s", string->value);
+        string->currentIndex = 0;
+
+        while (isPossible == 0 && stateList[currentInitialState]->isInitialState == 1)
+        {
+            isPossible = isStringAcceptable(stateList,currentInitialState,string);
+            currentInitialState++;
+        }
+
+        if (isPossible == 1)
+        {
+            printf("aceita\n");
+        }
+        else
+        {
+            printf("rejeita\n");
+        }
+    }
+    free(string);
+}
+
+int main()
+{
+    //Linha 1 - Numero de estados
+    int totalStates = readStatesQuantity();
+    node *stateList[totalStates];
+
+	int i = 0;
+    for (i = 0; i < totalStates; i++)
+    {
+        stateList[i] = createLinkedList();
+    }
+
+    //Linha 2 - Os simbolos do conjunto sigma
+    char *sigma = (char*)calloc(10,sizeof(char));
+    readSymbols(sigma);
+
+    //Linha 3 - Os estados iniciais
+    readInitialStates(stateList);
+
+    //Linha 4 - Os estados de aceitacao
+    readEndStates(stateList);
+
+    //Linha 5 e 6 - O numero de transicoes e as transicoes entre os estados
+    readTransitions(stateList, sigma);
+
+    //Linha 7 e 8 - Le as cadeias de entrada, e verifica se a linguagem Ã© reconhecida pelo automato ou nao
+    int totalStringsToRead = readStringQuantity();
+    readAndVerifyAllStrings(stateList,totalStringsToRead);
+
+    //Libera a lista e o conjunto sigma
+    for (i = 0; i < totalStates; i++)
+    {
+        freeLinkedList(stateList[i]);
+    }
+
+    free(sigma);
+
+	setbuf(stdin, NULL);
+	printf("Aperte qualquer tecla para encerrar o simulador.\n");
+	// getch();
+
+    return 0;
+}
