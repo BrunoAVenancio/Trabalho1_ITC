@@ -39,10 +39,15 @@ int main()
 
     free(sigma);
 
+<<<<<<< HEAD
 	//setbuf(stdin, NULL);
 	//printf("Aperte qualquer tecla para encerrar o simulador.\n");
 	//getch();
     system("pause");
+=======
+	setbuf(stdin, NULL);
+	// getch();
+>>>>>>> 80856ce9236392ef395c39cf807945c25349e9cb
 
     return 0;
 }

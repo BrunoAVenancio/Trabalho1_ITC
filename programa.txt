@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 
+/***** Inicio Funcoes da lista encadeada *****/
 typedef struct transition
 {
     char currentState;
@@ -67,7 +68,9 @@ int pushNode(node *header, int state, char value)
 
     return 1;
 }
+/***** Fim das Funcoes da lista encadeada *****/
 
+/***** Inicio das Funcoes de leitura de entrada *****/
 // linha1
 int readStatesQuantity()
 {
@@ -77,8 +80,7 @@ int readStatesQuantity()
         scanf("%d", &quantity);
         if (quantity > 0 && quantity < 11)
             break;
-        else
-            printf("Valor fora do intervalo 1<=n<=10. Informe outro valor.\n");
+       
     }
     setbuf(stdin, NULL);
     return quantity;
@@ -117,8 +119,6 @@ void readInitialStates(node **stateList)
             }
             break;
         }
-        else
-            printf("Quantidade de estados iniciais fora do intervalo 1<=n<=10. Informe outro valor.\n");
     }
     getchar();
 }
@@ -152,8 +152,6 @@ int readTransition()
         scanf("%d", &totalTransitions);
         if(totalTransitions > 0 && totalTransitions < 51)
             break;
-        else
-            printf("Numero de transicoes fora do intervalo 1<=n<=50. Informe outro valor.\n");
 
     }
     getchar();
@@ -198,7 +196,6 @@ void readTransitions(node **stateList, char *sigma)
             getchar();
             if (!isValueASymbol(&transition[i].transitionValue, sigma))
             {
-                printf("Valor de transicao invalido (nao pertencente a sigma). Tente novamente.\n");
                 controller = 0;
             }
             else
@@ -227,13 +224,13 @@ int readStringQuantity()
         scanf("%c", &trash);
         if(totalStrings > 0 && totalStrings < 11)
             break;
-        else
-            printf("Numero de cadeias fora do intervalo 1<=n<=10. Informe outro numero.\n");
     }
 
     return totalStrings;
 }
+/***** Fim das Funcoes de leitura de entrada *****/
 
+/***** Inicio das Funcoes de verificacao da cadeia *****/
 int isStringAcceptable(node **stateList,int currentState ,inputString *string)
 {
     int isPossible = 0;
@@ -293,6 +290,8 @@ void readAndVerifyAllStrings(node **stateList, int totalStrings)
     }
     free(string);
 }
+/***** Fim das Funcoes de verificacao da cadeia *****/
+
 
 int main()
 {
@@ -332,7 +331,6 @@ int main()
     free(sigma);
 
 	setbuf(stdin, NULL);
-	printf("Aperte qualquer tecla para encerrar o simulador.\n");
 	// getch();
 
     return 0;

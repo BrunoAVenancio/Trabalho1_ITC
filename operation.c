@@ -9,8 +9,11 @@ int readStatesQuantity()
         scanf("%d", &quantity);
         if (quantity > 0 && quantity < 11)
             break;
+<<<<<<< HEAD
         //else
           //  printf("Valor fora do intervalo 1<=n<=10. Informe outro valor.\n");
+=======
+>>>>>>> 80856ce9236392ef395c39cf807945c25349e9cb
     }
     setbuf(stdin, NULL);
     return quantity;
@@ -36,7 +39,10 @@ void readSymbols(char *sigma)
             scanf("%c", &trash);
             scanf("%c", &trash);
         }
+<<<<<<< HEAD
        // printf("Entradas além de 10 nao foram salvas!\n");
+=======
+>>>>>>> 80856ce9236392ef395c39cf807945c25349e9cb
     }
     getchar();
 }
@@ -58,8 +64,11 @@ void readInitialStates(node **stateList)
             }
             break;
         }
+<<<<<<< HEAD
         //else
         //    printf("Quantidade de estados iniciais fora do intervalo 1<=n<=10. Informe outro valor.\n");
+=======
+>>>>>>> 80856ce9236392ef395c39cf807945c25349e9cb
     }
     getchar();
 }
@@ -87,7 +96,10 @@ void readEndStates(node **stateList)
             scanf("%c", &trash);
             scanf("%c", &trash);
         }
+<<<<<<< HEAD
        // printf("Entradas além de 10 nao foram salvas!\n");
+=======
+>>>>>>> 80856ce9236392ef395c39cf807945c25349e9cb
     }
     getchar();
 }
@@ -102,8 +114,11 @@ int readTransition()
         scanf("%d", &totalTransitions);
         if(totalTransitions > 0 && totalTransitions < 51)
             break;
+<<<<<<< HEAD
        // else
         //    printf("Numero de transicoes fora do intervalo 1<=n<=50. Informe outro valor.\n");
+=======
+>>>>>>> 80856ce9236392ef395c39cf807945c25349e9cb
 
     }
     getchar();
@@ -148,7 +163,10 @@ void readTransitions(node **stateList, char *sigma)
             getchar();
             if (!isValueASymbol(&transition[i].transitionValue, sigma))
             {
+<<<<<<< HEAD
                // printf("Valor de transicao invalido (nao pertencente a sigma). Tente novamente.\n");
+=======
+>>>>>>> 80856ce9236392ef395c39cf807945c25349e9cb
                 controller = 0;
             }
             else
@@ -177,8 +195,11 @@ int readStringQuantity()
         scanf("%c", &trash);
         if(totalStrings > 0 && totalStrings < 11)
             break;
+<<<<<<< HEAD
         //else
          //   printf("Numero de cadeias fora do intervalo 1<=n<=10. Informe outro numero.\n");
+=======
+>>>>>>> 80856ce9236392ef395c39cf807945c25349e9cb
     }
 
     return totalStrings;
