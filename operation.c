@@ -23,11 +23,19 @@ void readSymbols(char *sigma)
     int symbolQuantity;
     scanf("%d", &symbolQuantity);
 
-	int i = 0;
-	for (i = 0; i < symbolQuantity; i++)
+    int i = 0;
+    for (i = 0; i < symbolQuantity && i < 10; i++)
     {
         scanf("%c", &trash);
         scanf("%c", &sigma[i]);
+    }
+    if(symbolQuantity > 10)
+    {
+        for(int j=10; j < symbolQuantity; j++)
+        {
+            scanf("%c", &trash);
+            scanf("%c", &trash);
+        }
     }
     getchar();
 }
@@ -62,17 +70,26 @@ void readEndStates(node **stateList)
     char trash, endState;
     scanf("%d", &totalEndStates);
 
-	int i = 0;
-	for (i = 0; i < totalEndStates; i++)
-	{
+    int i = 0;
+    for (i = 0; i < totalEndStates && i < 10; i++)
+    {
         scanf("%c", &trash);
         scanf("%c", &endState);
         //Convertendo o char para int
         int index  = endState - '0';
         stateList[index]->isEndState = 1;
     }
+    if(totalEndStates > 10)
+    {
+        for(int j = 10; j < totalEndStates; j++)
+        {
+            scanf("%c", &trash);
+            scanf("%c", &trash);
+        }
+    }
     getchar();
 }
+
 //linha 5
 int readTransition()
 {
