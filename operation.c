@@ -36,6 +36,7 @@ void readSymbols(char *sigma)
             scanf("%c", &trash);
             scanf("%c", &trash);
         }
+        printf("Entradas além de 10 nao foram salvas!\n");
     }
     getchar();
 }
@@ -86,6 +87,7 @@ void readEndStates(node **stateList)
             scanf("%c", &trash);
             scanf("%c", &trash);
         }
+        printf("Entradas além de 10 nao foram salvas!\n");
     }
     getchar();
 }
