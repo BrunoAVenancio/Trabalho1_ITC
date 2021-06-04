@@ -9,8 +9,8 @@ int readStatesQuantity()
         scanf("%d", &quantity);
         if (quantity > 0 && quantity < 11)
             break;
-        else
-            printf("Valor fora do intervalo 1<=n<=10. Informe outro valor.\n");
+        //else
+          //  printf("Valor fora do intervalo 1<=n<=10. Informe outro valor.\n");
     }
     setbuf(stdin, NULL);
     return quantity;
@@ -36,7 +36,7 @@ void readSymbols(char *sigma)
             scanf("%c", &trash);
             scanf("%c", &trash);
         }
-        printf("Entradas além de 10 nao foram salvas!\n");
+       // printf("Entradas além de 10 nao foram salvas!\n");
     }
     getchar();
 }
@@ -58,8 +58,8 @@ void readInitialStates(node **stateList)
             }
             break;
         }
-        else
-            printf("Quantidade de estados iniciais fora do intervalo 1<=n<=10. Informe outro valor.\n");
+        //else
+        //    printf("Quantidade de estados iniciais fora do intervalo 1<=n<=10. Informe outro valor.\n");
     }
     getchar();
 }
@@ -87,7 +87,7 @@ void readEndStates(node **stateList)
             scanf("%c", &trash);
             scanf("%c", &trash);
         }
-        printf("Entradas além de 10 nao foram salvas!\n");
+       // printf("Entradas além de 10 nao foram salvas!\n");
     }
     getchar();
 }
@@ -102,8 +102,8 @@ int readTransition()
         scanf("%d", &totalTransitions);
         if(totalTransitions > 0 && totalTransitions < 51)
             break;
-        else
-            printf("Numero de transicoes fora do intervalo 1<=n<=50. Informe outro valor.\n");
+       // else
+        //    printf("Numero de transicoes fora do intervalo 1<=n<=50. Informe outro valor.\n");
 
     }
     getchar();
@@ -148,7 +148,7 @@ void readTransitions(node **stateList, char *sigma)
             getchar();
             if (!isValueASymbol(&transition[i].transitionValue, sigma))
             {
-                printf("Valor de transicao invalido (nao pertencente a sigma). Tente novamente.\n");
+               // printf("Valor de transicao invalido (nao pertencente a sigma). Tente novamente.\n");
                 controller = 0;
             }
             else
@@ -177,8 +177,8 @@ int readStringQuantity()
         scanf("%c", &trash);
         if(totalStrings > 0 && totalStrings < 11)
             break;
-        else
-            printf("Numero de cadeias fora do intervalo 1<=n<=10. Informe outro numero.\n");
+        //else
+         //   printf("Numero de cadeias fora do intervalo 1<=n<=10. Informe outro numero.\n");
     }
 
     return totalStrings;

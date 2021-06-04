@@ -6,6 +6,7 @@ int main()
     //Linha 1 - Numero de estados
     int totalStates = readStatesQuantity();
     node *stateList[totalStates];
+    //char aux;
 
 	int i = 0;
     for (i = 0; i < totalStates; i++)
@@ -38,9 +39,10 @@ int main()
 
     free(sigma);
 
-	setbuf(stdin, NULL);
-	printf("Aperte qualquer tecla para encerrar o simulador.\n");
-	// getch();
+	//setbuf(stdin, NULL);
+	//printf("Aperte qualquer tecla para encerrar o simulador.\n");
+	//getch();
+    system("pause");
 
     return 0;
 }
