@@ -39,7 +39,6 @@ int main()
     free(sigma);
 
 	setbuf(stdin, NULL);
-	printf("Aperte qualquer tecla para encerrar o simulador.\n");
 	// getch();
 
     return 0;
