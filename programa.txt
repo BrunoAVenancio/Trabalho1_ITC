@@ -330,8 +330,10 @@ int main()
 
     free(sigma);
 
-	setbuf(stdin, NULL);
+	//setbuf(stdin, NULL);
 	// getch();
 
+    system("pause");
+    
     return 0;
 }
